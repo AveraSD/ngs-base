@@ -8,7 +8,10 @@ FROM ubuntu:14.04
 MAINTAINER Tobias Meissner meissner.t@googlemail.com
 
 # update system
-RUN apt-get update &&  apt-get upgrade -y && apt-get dist-upgrade -y
+RUN apt-get update &&  apt-get upgrade -y && apt-get dist-upgrade -y 
+
+# install some system tools
+RUN apt-get install -y git tabix zip build-essential autoconf zlib1g-dev libncurses5-dev asciidoc wget curl cmake
 
 #--------------STANDARD NGS TOOLS----------------------------------------------------------------------------------------------#
 # Tools used for processing SAM/BAM/BED/VCF files
@@ -70,7 +73,6 @@ RUN cd /opt && \
 # seqtk and trimadap
 RUN cd /opt/ && \
     git clone https://github.com/lh3/seqtk.git && \
-    chown -R pipeman:ngsgroup /opt/seqtk && \
     cd seqtk/ && \
     chmod -R 777 ./* && \
     make && \
